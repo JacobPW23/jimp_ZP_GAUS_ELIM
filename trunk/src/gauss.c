@@ -9,14 +9,17 @@ int eliminate(Matrix *mat, Matrix *b){
 int w=mat->r;
 int k=mat->c;
 double **dane=mat->data;
-double tmp;
-for(int i=1;i<w;i++)
+double **rhsv=b->data;
+for(int i=0;i<k-1;i++)
 {
-	if(dane[i]>dane[0])
-	{
-		tmp=dane[0];	
-		dane[0]=dane[i];
-		dane[i]=tmp;
+	double a;
+	for(int j=i+1;j<w;j++)
+	{       if(dane[i][i])
+		 	a=(dane[j][i]/dane[i][i]);
+		else return 1;
+		for(int z=i;z<k;z++)
+			dane[j][z]-=a*dane[i][z];
+		rhsv[j][0]-=a*rhsv[i][0];
 	}
 
 }
