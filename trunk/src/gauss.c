@@ -1,15 +1,26 @@
 #include "gauss.h"
+#include "mat_io.h"
 #include <math.h>
+#define MAX_ROWS 1000
 /**
  * Zwraca 0 - elimnacja zakonczona sukcesem
  * Zwraca 1 - macierz osobliwa - dzielenie przez 0
  */
+
+int swaps[MAX_ROWS];
+
 int eliminate(Matrix *mat, Matrix *b){
 
 int rows=mat->r;
 int cols=mat->c;
 double **data=mat->data;
 double **b_data=b->data;
+
+if(rows!=cols)
+	return -1;
+
+for(int i=0;i<rows;i++)
+	swaps[i]=i;
 
 for(int i=0;i<cols-1;i++)
 {
@@ -29,6 +40,10 @@ for(int i=0;i<cols-1;i++)
 		double *tmpB=b_data[i];
 		b_data[i]=b_data[maxElem];
 		b_data[maxElem]=tmpB;
+
+		int tmpSwap=swaps[i];
+		swaps[i]=swaps[maxElem];
+		swaps[maxElem]=tmpSwap;
 	}
 
 	for(int j=i+1;j<rows;j++)

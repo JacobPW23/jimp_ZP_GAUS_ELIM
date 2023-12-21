@@ -18,13 +18,20 @@ int main(int argc, char ** argv) {
 
 	res = eliminate(A,b);
 	x = createMatrix(b->r, 1);
+
+	if(res!=0)
+	{
+		printf("Macierz nieosobliwa.\n");
+		return 1;
+	}
+
 	if (x != NULL) {
 		res = backsubst(x,A,b);
-
+		swapSolutions(x, swaps);		
 		printToScreen(x);
 	  freeMatrix(x);
 	} else {
-					fprintf(stderr,"Błąd! Nie mogłem utworzyć wektora wynikowego x.\n");
+		fprintf(stderr,"Błąd! Nie mogłem utworzyć wektora wynikowego x.\n");
 	}
 
 	freeMatrix(A);

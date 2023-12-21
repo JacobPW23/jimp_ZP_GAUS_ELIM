@@ -67,3 +67,23 @@ void freeMatrix(Matrix * mat) {
 	free(mat);
 }
 
+//zamienia miejscami rozwiazania gdy nastepuja zamiany wierszy
+void swapSolutions(Matrix * x, int *swaps)
+{
+	for(int i=0;i<x->r;i++)
+	{
+		while(swaps[i]!=i)
+		{
+			int swapIndex=swaps[i];
+			double tmp=x->data[i][0];
+
+			x->data[i][0]=x->data[swapIndex][0];
+			x->data[swapIndex][0]=tmp;
+
+			int tmpIndex=swaps[i];
+			swaps[i]=swaps[swapIndex];
+			swaps[swapIndex]=tmpIndex;
+
+		}
+	}
+}
