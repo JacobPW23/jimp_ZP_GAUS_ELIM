@@ -17,14 +17,31 @@ int main(int argc, char ** argv) {
 	printToScreen(b);
 
 	res = eliminate(A,b);
+	if(res==-1)
+	{
+		printf("Macierz nie jest kwadratowa\n");
+		return 1;
+	}
+	else if(res==1)
+	{
+		printf("Macierz jest osobliwa\n");
+		return 1;
+	}
+
 	x = createMatrix(b->r, 1);
 	if (x != NULL) {
 		res = backsubst(x,A,b);
+		if(res==1)
+		{
+			printf("Macierz jest osobliwa\n");
+			return 1;
+		}
+
 
 		printToScreen(x);
 	  freeMatrix(x);
 	} else {
-					fprintf(stderr,"Błąd! Nie mogłem utworzyć wektora wynikowego x.\n");
+		fprintf(stderr,"Błąd! Nie mogłem utworzyć wektora wynikowego x.\n");
 	}
 
 	freeMatrix(A);
