@@ -10,7 +10,8 @@ int rows=mat->r;
 int cols=mat->c;
 double **data=mat->data;
 double **b_data=b->data;
-
+if(rows!=cols)
+	return -1;
 for(int i=0;i<cols-1;i++)
 {
 	int maxElem=i;
